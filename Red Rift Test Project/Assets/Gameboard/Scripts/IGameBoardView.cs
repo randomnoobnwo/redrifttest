@@ -12,6 +12,7 @@ namespace Gameboard.Scripts
             string artTextureUrl);
 
         void SetupInput(MainInputView input);
+        void UpdateStats(string stats);
         void NoInput();
         void UpdateCardHealth(ICardView cardView, int oldValue, int newValue);
         void UpdateCardAttack(ICardView cardView, int oldValue, int newValue);

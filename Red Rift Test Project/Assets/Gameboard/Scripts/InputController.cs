@@ -27,7 +27,8 @@ namespace Gameboard.Scripts
                     }).ToArray(),
                     RandomChange = mainInput.HandCount == 0 ? (Action) null : () => controller.ExecuteMove(new RandomChangeMove(false)),
                     RandomChangeInfinite = mainInput.HandCount == 0 ? (Action) null : () => controller.ExecuteMove(new RandomChangeMove(true)),
-                    Stats = $"Playable: {mainInput.PlayableCards.Count} Deck: {mainInput.DeckCount} Hand: {mainInput.HandCount} Play: {mainInput.PlayCount}"
+                    Stats = $"Playable: {mainInput.PlayableCards.Count} Deck: {mainInput.DeckCount} Hand: {mainInput.HandCount} Play: {mainInput.PlayCount}",
+                    DrawCards = mainInput.DeckCount == 0 ? (Action) null : () => controller.ExecuteMove(new DrawCardsMove(Math.Min(mainInput.DeckCount, 5)))
                 };
 
             throw new Exception($"Input {input} not supported");

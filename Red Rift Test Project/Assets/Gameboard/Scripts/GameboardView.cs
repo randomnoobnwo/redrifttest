@@ -13,6 +13,7 @@ public class GameboardView : MonoBehaviour, IGameBoardView
     public Button PlayCardButton;
     public Button RandomChangeButton;
     public Button RandomChangeInfiniteButton;
+    public Button DrawRandomCardsButton;
     public Text FireText;
     public Text StatsText;
 
@@ -71,13 +72,25 @@ public class GameboardView : MonoBehaviour, IGameBoardView
                     Debug.LogWarning("No cards to play");
             });
 
-            RandomChangeButton.onClick.RemoveAllListeners();
-            RandomChangeButton.gameObject.SetActive(input.RandomChange != null);
-            RandomChangeButton.onClick.AddListener(() => input.RandomChange());
-            
-            RandomChangeInfiniteButton.onClick.RemoveAllListeners();
-            RandomChangeInfiniteButton.gameObject.SetActive(input.RandomChangeInfinite != null);
-            RandomChangeInfiniteButton.onClick.AddListener(() => input.RandomChangeInfinite());
+            SetupButton(RandomChangeButton, input.RandomChange);
+            SetupButton(RandomChangeInfiniteButton, input.RandomChangeInfinite);
+            SetupButton(DrawRandomCardsButton, input.DrawCards);
+        });
+    }
+
+    private void SetupButton(Button button, Action action)
+    {
+        button.onClick.RemoveAllListeners();
+        button.gameObject.SetActive(action != null);
+        if (action != null)
+            button.onClick.AddListener(action.Invoke);
+    }
+
+    public void UpdateStats(string stats)
+    {
+        _actionsQueue = _actionsQueue.Enqueue(() =>
+        {
+            StatsText.text = stats;
         });
     }
 
@@ -88,6 +101,7 @@ public class GameboardView : MonoBehaviour, IGameBoardView
             PlayCardButton.gameObject.SetActive(false);
             RandomChangeButton.gameObject.SetActive(false);
             RandomChangeInfiniteButton.gameObject.SetActive(false);
+            DrawRandomCardsButton.gameObject.SetActive(false);
         });
     }
 

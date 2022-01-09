@@ -65,12 +65,15 @@ public class GameBoardController
         switch (action)
         {
             case CardHealthUpdate cardHealthUpdate:
+                if (cardHealthUpdate.NewValue == cardHealthUpdate.OldValue) break;
                 _view.UpdateCardHealth(_cardViews[cardHealthUpdate.Card], cardHealthUpdate.OldValue, cardHealthUpdate.NewValue);
                 break;
             case CardAttackUpdate cardAttackUpdate:
+                if (cardAttackUpdate.NewValue == cardAttackUpdate.OldValue) break;
                 _view.UpdateCardAttack(_cardViews[cardAttackUpdate.Card], cardAttackUpdate.OldValue, cardAttackUpdate.NewValue);
                 break;
             case CardManaCostUpdate cardManaCostUpdate:
+                if (cardManaCostUpdate.NewValue == cardManaCostUpdate.OldValue) break;
                 _view.UpdateCardManaCost(_cardViews[cardManaCostUpdate.Card], cardManaCostUpdate.OldValue, cardManaCostUpdate.NewValue);
                 break;
             case MoveCardsAction moveCardsAction:
@@ -112,7 +115,7 @@ public class GameBoardController
     {
         _view.SetupInput(InputController.GetInputView(this, _state.GetInput(), id => _cardViews[id]));
     }
-
+    
     public void ExecuteMove(GameMove move)
     {
         _view.NoInput();
@@ -123,6 +126,9 @@ public class GameBoardController
         {
             case PlayCardMove playCardMove:
                 ctx = ctx.PlayCard(playCardMove.CardId);
+                break;
+            case DrawCardsMove drawCardsMove:
+                ctx = ctx.DrawCards(drawCardsMove.Number);
                 break;
             case RandomChangeMove randomChangeMove:
                 ctx = ctx.RandomChange();
@@ -136,7 +142,13 @@ public class GameBoardController
                         if (_state.GetCardsInLoc(CardLocation.Hand).Count == 0)
                             SetupInput();
                         else
+                        {
+                            var mainInput = _state.GetInput() as MainInput;
+                            var stats =
+                                $"Playable: {mainInput.PlayableCards.Count} Deck: {mainInput.DeckCount} Hand: {mainInput.HandCount} Play: {mainInput.PlayCount}";
+                            _view.UpdateStats(stats);
                             _view.EnqueueAction(() => ExecuteMove(new RandomChangeMove(true)));
+                        }
                     });
                     return;
                 }

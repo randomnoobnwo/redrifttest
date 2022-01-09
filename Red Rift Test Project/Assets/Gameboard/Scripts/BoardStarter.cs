@@ -21,13 +21,14 @@ namespace Gameboard.Scripts
             
             for (var i = 0; i < 30; i++)
             {
-                state = state.AddCardBase(new CardBase(Guid.NewGuid().ToString(), 
+                var cardBase = new CardBase(Guid.NewGuid().ToString(),
                     Guid.NewGuid().ToString(),
                     Guid.NewGuid().ToString(),
                     random.Next(1, 7),
                     random.Next(1, 7),
                     random.Next(1, 7),
-                    "https://picsum.photos/512/512"));
+                    "https://picsum.photos/512/512");
+                state = state.AddCardBase(cardBase);
             }
 
             var controller = new GameBoardController(state, View);

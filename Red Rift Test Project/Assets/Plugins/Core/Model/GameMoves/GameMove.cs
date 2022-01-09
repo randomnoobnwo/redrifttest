@@ -5,6 +5,16 @@
         
     }
 
+    public class DrawCardsMove : GameMove
+    {
+        public int Number;
+
+        public DrawCardsMove(int number)
+        {
+            Number = number;
+        }
+    }
+
     public class PlayCardMove : GameMove
     {
         public int CardId { get; }

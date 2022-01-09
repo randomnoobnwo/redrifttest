@@ -8,6 +8,7 @@ namespace Gameboard.Scripts.Inputs
         public ViewCardVisual[] CardVisuals;
         public Action RandomChange;
         public Action RandomChangeInfinite;
+        public Action DrawCards;
         public int Fire;
         public string Stats;
     }

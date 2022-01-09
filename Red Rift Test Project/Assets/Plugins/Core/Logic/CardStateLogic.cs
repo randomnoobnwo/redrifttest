@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Immutable;
+using System.Linq;
 
 namespace GameCore.Logic
 {
@@ -21,6 +22,11 @@ namespace GameCore.Logic
         public static CardState AddMod(this CardState state, CardMod mod)
         {
             return state.Mutate(state.Modifiers.Add(mod));
+        }
+
+        public static CardState ClearMods(this CardState state)
+        {
+            return state.Mutate(ImmutableList<CardMod>.Empty);
         }
     }
 }
