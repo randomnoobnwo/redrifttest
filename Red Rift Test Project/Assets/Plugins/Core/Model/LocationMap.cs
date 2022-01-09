@@ -11,6 +11,17 @@ namespace GameCore
         
         public static LocationMap Empty = new LocationMap();
         
+        public LocationMap AddCard(int id, CardLocation loc)
+        {
+            return new LocationMap()
+            {
+                cardMap = cardMap.Add(id, loc),
+                locMap = locMap.Update(
+                    loc, 
+                    cardList => cardList.Add(id))
+            };
+        }
+        
         public LocationMap MoveCard(int id, CardLocation loc)
         {
             var oldLoc = cardMap[id];

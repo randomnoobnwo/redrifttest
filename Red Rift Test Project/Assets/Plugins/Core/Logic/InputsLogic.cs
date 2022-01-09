@@ -8,7 +8,11 @@ namespace GameCore.Logic
         {
             return new MainInput()
             {
-                PlayableCards = state.CardLocationMap.GetLocCards(CardLocation.Hand).Where(c => state.GetCardCost(c) <= state.Fire).ToList()
+                PlayableCards = state.GetCardsInLoc(CardLocation.Hand).Where(c => state.GetCardCost(c) <= state.Fire).ToList(),
+                Fire = state.Fire,
+                DeckCount = state.GetCardsInLoc(CardLocation.Deck).Count,
+                HandCount = state.GetCardsInLoc(CardLocation.Hand).Count,
+                PlayCount = state.GetCardsInLoc(CardLocation.Play).Count
             };
         }
     }
