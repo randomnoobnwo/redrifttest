@@ -9,7 +9,7 @@ Run Gameboard scene
 - playable cards - cards that cost less or equal to available fire
 
 ## buttons
-- randomize one or all cards until to cards left in hand.
+- randomize one or all cards until no cards left in hand.
 - play card button plays first playable card from hand.
 - draw button draws 5 cards from deck.
 
@@ -18,7 +18,7 @@ Separated into Plugins/Core folder. Should be a submodule to allow testing it wi
 
 ## GameState
 
-Game state object. Contains all information about... game state.
+Game state object. Contains all information about... game state. I.e. cards, their locations, card states, random seed.
 
 Logic related to operating state located in StateLogic.cs
 
