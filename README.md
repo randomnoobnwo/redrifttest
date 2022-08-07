@@ -1,6 +1,15 @@
 # redrifttest
 Red Rift Test Project
 
+# Requirements
+
+Create an UI button at the center of the screen to randomly change one randomly selected value -2→9 (the range is from -2 to 9) of each one card sequentially, starting from the most left card in the player's hand moving right and repeating the sequence after reaching the most right card.
+
+Bind Attack, Health and mana properties to UI. Changing those values from code must be reflected on the card's UI with counter animation. (counting from the initial to the new value) 
+
+If some card’s HP drop below 1 - remove this card from player’s hand. (dont forget to     reposition other cards, use tweens to make it smooth)
+  
+
 # How to test
 Run Gameboard scene
 
